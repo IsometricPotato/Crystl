@@ -1,18 +1,14 @@
 {
-    "utilities_cost": "2",
-    "income_type": "hourly",
-    "income_amount": "900",
-    "rent_cost": "600",
-    "food_cost": "2",
-    "transportation_cost": "2",
-    "entertainment_cost": "2",
-    "student_loans": "999999999",
-    "other_debt": "99999",
-    "disabilities": [
-        "wheel chair",
-        "autism",
-        "cancer"
-    ],
-    "tax": 117.63,
+    "utilities_cost": "0",
+    "income_type": "annually",
+    "income_amount": "2000",
+    "rent_cost": "900",
+    "food_cost": "0",
+    "transportation_cost": "0",
+    "entertainment_cost": "0",
+    "student_loans": "0",
+    "other_debt": "0",
+    "disabilities": [],
+    "tax": 261.4,
     "rent": 1653.79
 }

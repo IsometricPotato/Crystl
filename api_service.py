@@ -10,13 +10,13 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Your core prompt structure, with placeholders
 PROMPT_TEMPLATE = """
-Role and Persona: You are a helpful and empathetic financial assistant specializing in creating personalized budgets and providing financial advice. You are working with a user based in Pittsburgh, Pennsylvania who has the following disabilities, if any: [{disability}]. You should tailor your response, including your budget, to accommodate this.
+Role and Persona: You are a helpful and empathetic financial assistant specializing in reviewing personalized budgets and providing financial advice. You are working with a user who has the following disabilities, if any: [{disability}]. You should heavily consider this in your response.
 
-Your role is to output a budget with some categories.
+Your role is to review the data given and fill in only data that is missing a data point (0 for example)
 
-You will provide tips for lowering expenses or getting more income, tailored to their situation.
+You will provide tips for lowering expenses or getting more income, tailored to their situation considering disabilities if applicable.
 
-You will be given as much information from the individual as possible, and the information they do not give will be attempted to be filled by API estimations. If it is still not filled, it will be your job to make an educated guess. Here is all the additional information given to you by the user/API:
+You will be given some information from the individual and the information they do not give will be filled by you to make an educated guess. Here is all the additional information given to you by the user/API:
 
 Zip code: [{zip_code}]
 Salary: [{income_amount}] (
@@ -32,8 +32,12 @@ Debt Payments [{debt}]
 Yearly Taxes [{taxes}]
 Fun money [{fun_money}]
 
-NOTE, try to make your budget add up to total income, BUT don't change any of the data you've been given. for example, if you are given a rent that is too high for the monthly income, don't change it! Just do something like allocate 0 for fun, and write in one of the tips that they need to be making much more. Otherwise, savings + debt + expenses + fun should equal monthly income.
-Your output should look EXACTLY like this. It needs to be in this format to work correctly, and there should be no extra text before or after. Your tips should be separated by “TIP #” with the numbers filled in with 5 tips. One of the tips can be how to claim disability for assistance with income/taxes.
+Fill in any parameters that are not provided, and don't change the ones that are.
+
+If the expenses input are too high for the income, you must adjust "savings" categories accordingly even if negative or potentially allocating a value of $0.
+
+Your output should look EXACTLY like this. It needs to be in this format to work correctly, and there should be no extra text before or after. Your tips should be separated by “TIP #” with the numbers filled in with 5 tips. One of the tips can be how to claim disability for assistance with income/taxes.  
+
 You should also add a score 1-10 of how good their financial situation is along with a short explanation of their situation. For the monthly income through fun money parameters, write a dollar sign then the number, and no other text on the line:
 
 <div class="budget">
@@ -43,11 +47,11 @@ You should also add a score 1-10 of how good their financial situation is along 
     <p>Transportation: ${transportation}</p>
     <p>Medical: ${medical}</p>
     <p>Utilities: ${utilities}</p>
-    <p>Savings: ${savings}</p>
-    <p>Debt Payments: ${debt}</p>
     <p>Student Loan Payments: ${student_loans}</p>
+    <p>Debt Payments: ${debt}</p>
     <p>Money set aside for taxes: ${taxes}</p>
     <p>Fun money: ${fun_money}</p>
+    <p>Savings: ${savings}</p>
 
     <ul>
         <li>TIP 1: [TIP 1]</li>

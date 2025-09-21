@@ -46,14 +46,6 @@
             </form>
         </li>
 
-        <li class="data_inputs">
-            <span class="header">Utilities</span>
-            <form method="POST" action="{{ url_for('update_utilities') }}">
-                <input type="number" name="utilities_cost" id="utilities_cost" step="0.01" required>
-
-                <button type="submit" style="display:none;"></button>
-            </form>
-        </li>
 
         <li class="data_inputs">
             <span class="header">Food</span>
@@ -69,6 +61,24 @@
             <form method="POST" action="{{ url_for('update_transportation') }}">
                 <input type="number" name="transportation_cost" id="transportation_cost" step="0.01" required>
                 
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Medical Bills</span>
+            <form method="POST" action="{{ url_for('update_medical') }}">
+                <input type="number" name="medical_bills" id="medical_bills" step="0.01" required>
+                
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Utilities</span>
+            <form method="POST" action="{{ url_for('update_utilities') }}">
+                <input type="number" name="utilities_cost" id="utilities_cost" step="0.01" required>
+
                 <button type="submit" style="display:none;"></button>
             </form>
         </li>

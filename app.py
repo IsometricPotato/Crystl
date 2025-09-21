@@ -22,11 +22,11 @@ def write_budget(data):
 def home():
     if request.method == "POST":
         zip_code = request.form.get("zip_code")
-        income = request.form.get("income")
+        income = request.form.get("income_amount")
 
         budget_data = read_budget()
         budget_data["zip_code"] = zip_code
-        budget_data["income"] = income
+        budget_data["income_amount"] = income
         write_budget(budget_data)
 
         call_gemini_api()
@@ -91,6 +91,16 @@ def update_food():
 
     return redirect(url_for("expenses_page"))
 
+@app.route("/update_medical", methods=["POST"])
+def update_medical():
+    medical_bills = request.form.get("medical_bills")
+
+    budget_data = read_budget()
+    budget_data["medical_bills"] = medical_bills
+    write_budget(budget_data)
+
+    return redirect(url_for("expenses_page"))
+
 
 @app.route("/update_transportation", methods=["POST"])
 def update_transportation():
@@ -141,7 +151,20 @@ def update_disabilities():
 def reset_data():
 
     budget_data = read_budget()
-    budget_data = {}
+    budget_data = {
+    "utilities_cost": "0",
+    "income_type": "hourly",
+    "income_amount": "0",
+    "rent_cost": "0",
+    "food_cost": "0",
+    "transportation_cost": "0",
+    "entertainment_cost": "0",
+    "student_loans": "0",
+    "other_debt": "0",
+    "disabilities": [],
+    "tax": 0,
+    "rent": 0
+    }
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
