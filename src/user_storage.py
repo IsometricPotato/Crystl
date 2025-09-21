@@ -27,3 +27,7 @@ def update_user_data(data, value):
     user_data[data] = value
 
     save_user_data(user_data)
+
+def return_user_data(data):
+    user_data = load_user_data()
+    return user_data[data]
