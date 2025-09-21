@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #4b0082;
+    color: white;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.main-container {
+    display: flex;
+    min-height: 90vh;
+}
+
+/* Sidebar container */
+.sidebar {
+    width: 220px;       /* fixed width */
+    background-color: #eee;
+    padding: 1rem;
+    box-sizing: border-box; /* include padding in width */
+}
+
+/* Remove list bullets */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Each list item full width */
+.sidebar .data_inputs {
+    width: 100%;       /* full width of sidebar */
+    margin-bottom: 1rem;
+}
+
+/* Purple header as centered oval */
+.sidebar .data_inputs .header {
+    background-color: #4b0082; /* purple */
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    display: block;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;          /* fill the li */
+    box-sizing: border-box;
+}
+
+/* Inputs under headers */
+.sidebar .data_inputs input {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 1rem;
+    display: block;
+    box-sizing: border-box;
+}
+
+
+
+/* Content area */
+.content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.form-container {
+    background: #f9f9f9;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: auto;
+}
+
+input, button {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+button[type="submit"] {
+    background-color: #4b0082;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #5e1aa0;
+}
+
+.result-card {
+    background: #e0e0ff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin: 1rem auto;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}

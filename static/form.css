@@ -1,0 +1,41 @@
+.navbar {
+    background-color: #4b0082; /* Indigo color */
+    color: white;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+}
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; 
+}
+
+form {
+    background: #f9f9f9;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0); 
+    font-size: 1.2rem;
+}
+
+input, button {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+button {
+    background-color: #4b0082;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5e1aa0;
+}

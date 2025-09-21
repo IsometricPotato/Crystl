@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crystl Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='expenses_page.css') }}">
+</head> 
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        Crystl🔮 - Your Personal Finance Assistant
+    </div>
+
+    <!-- Main layout -->
+    <div class="main-container">
+        <!-- Sidebar -->
+<div class="sidebar">
+    <ul>
+        <li class="data_inputs">
+            <span class="header">Income</span>
+
+            <form method="POST" action="{{ url_for('update_income') }}">
+                <label for="income_type">Income Type:</label>
+                <select name="income_type" id="income_type" required>
+                    <option value="hourly">Hourly</option>
+                    <option value="annually">Annually</option>
+                </select>
+
+                <label for="income_amount">Income Amount:</label>
+                <input type="number" name="income_amount" id="income_amount" step="0.01" required>
+                
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+
+        <li class="data_inputs">
+            <span class="header">Rent Amount</span>
+            <form method="POST" action="{{ url_for('update_housing') }}">
+                <label for="rent_cost">Rent Amount:</label>
+                <input type="number" name="rent_cost" id="rent_cost" step="0.01" required>
+
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Utilities</span>
+            <form method="POST" action="{{ url_for('update_utilities') }}">
+                <label for="utilities_cost">Utilities Amount:</label>
+                <input type="number" name="utilities_cost" id="utilities_cost" step="0.01" required>
+
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Food</span>
+            <form method="POST" action="{{ url_for('update_food') }}">
+                <label for="food_cost">Monthly Food Cost:</label>
+                <input type="number" name="food_cost" id="food_cost" step="0.01" required>
+                
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Transportation</span>
+            <form method="POST" action="{{ url_for('update_transportation') }}">
+                <label for="transportation_cost">Monthly Transportation Cost:</label>
+                <input type="number" name="transportation_cost" id="transportation_cost" step="0.01" required>
+                
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Entertainment Budget</span>
+            <form method="POST" action="{{ url_for('update_entertainment') }}">
+                <label for="entertainment_cost">Entertainment Budget:</label>
+                <input type="number" name="entertainment_cost" id="entertainment_cost" step="0.01" required>
+                
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+
+        <li class="data_inputs">
+            <span class="header">Debt</span>
+            <form method="POST" action="{{ url_for('update_debt') }}">
+                <label for="student_loans">Total Student Loans:</label>
+                <input type="number" name="student_loans" id="student_loans" step="0.01" required>
+                
+                <label for="other_debt">Other Debt:</label>
+                <input type="number" name="other_debt" id="other_debt" step="0.01" required>
+
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+        <li class="data_inputs">
+            <form method="POST" action="{{ url_for('reset_data') }}">
+                <button type="submit" class="reset-button">Reset Data</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+    <div class="content">
+        <h2>Session Data</h2>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
