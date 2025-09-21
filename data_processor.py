@@ -1,6 +1,5 @@
 import json
-from .user_storage import load_user_data
-from .user_storage import save_user_data
+from user_storage import load_user_data, save_user_data
 import pandas as pd
 import argparse
 
@@ -12,26 +11,30 @@ def prepare_prompt_data():
     Cleans, validates, and fills in missing user data.
     """
     # Define a default structure for the data
+
     processed_data = {
-        "salary": "0",
+        "income_amount": "0",
+        "income_type": "Not provided",
         "zip_code": "15213", # Default for Pittsburgh
-        "rent": "Not provided",
-        "disability": "None",
-        "food": "Not provided",
-        "transportation": "Not provided",
+        "rent_cost": "Not provided",
+        "disabilities": [],
+        "food_cost": "Not provided",
+        "transportation_cost": "Not provided",
         "medical": "Not provided",
-        "utilities": "Not provided",
+        "utilities_cost": "Not provided",
         "savings": "Not provided",
         "student_loans": "0",
-        "debt": "Not provided",
+        "other_debt": "Not provided",
         "taxes": "Not provided",
-        "fun_money": "0"
+        "entertainment_cost": "0"
     }
+
 
     user_data = load_user_data()
     # Overwrite defaults with user-provided data
     for key, value in user_data.items():
         if key in processed_data and value:
+            print(f"Updating {key} to {value}")
             processed_data[key] = value
 
     save_user_data(user_data)
@@ -122,14 +125,14 @@ def calculateIncomeTax(csv_file: str, zip_code: int, income: int):
         "WI": 0.0765,
         "WY": 0.00,
     }
-
+    income = float(income)
     fedTax = 0
     if income < 40000:
         fedTax = 0.10
     elif income < 100000:
         fedTax = 0.18
     elif income < 200000:
-        fedTax - 0.22
+        fedTax = 0.22
     else:
         fedTax = 0.28
 
@@ -157,16 +160,16 @@ def calculateIncomeTax(csv_file: str, zip_code: int, income: int):
 
 
 # Example usage:
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Input type of expense and zip code")
-    parser.add_argument("expense", help="Expense:") #rent, income, etc
-    parser.add_argument("zip_code", type=int, help="Zip code:") #mandatory
-    parser.add_argument("income", type=int, help="Income:") #0 if not applicable
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description="Input type of expense and zip code")
+#     parser.add_argument("expense", help="Expense:") #rent, income, etc
+#     parser.add_argument("zip_code", type=int, help="Zip code:") #mandatory
+#     parser.add_argument("income", type=int, help="Income:") #0 if not applicable
 
-    args = parser.parse_args()
+#     args = parser.parse_args()
 
-    if(args.expense == "rent"):
-        result = lookup_expense("rent.csv", "RegionName", args.zip_code, "2025-08-31")
-    if(args.expense == "income"):
-        result = calculateIncomeTax("incomeTax.csv", args.zip_code, args.income)
-    print(result)
+#     if(args.expense == "rent"):
+#         result = lookup_expense("rent.csv", "RegionName", args.zip_code, "2025-08-31")
+#     if(args.expense == "income"):
+#         result = calculateIncomeTax("incomeTax.csv", args.zip_code, args.income)
+#     print(result)

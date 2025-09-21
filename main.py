@@ -17,4 +17,7 @@ update_user_data("debt", 50000)
 update_user_data("salary", 60000)
 
 #call gemini api with variables and print result
-print(call_gemini_api())
+response = call_gemini_api()
+print(response)
+
+print(getAI(response, "TIP 5"))

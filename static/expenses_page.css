@@ -1,58 +1,100 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
+/* Navbar */
 .navbar {
-    background-color: #4b0082;
-    color: white;
-    padding: 1rem;
+    background-color: #082d2f;
+    color: rgb(255, 255, 255);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    position: relative;
     font-size: 1.5rem;
     font-weight: bold;
-    text-align: left;
+    overflow: hidden;
+    padding: 0 1rem;
+    border-radius: 15px;  /* rounds all corners */
 }
 
+.navbar-logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+}
+
+.budget {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;       /* adjust as needed */
+    line-height: 1;        /* minimal line spacing */
+    white-space: pre-wrap; /* keeps line breaks from AI output */
+}
+
+.budget p,
+.budget li,
+.budget span {
+    margin: 0;
+    padding: 0;
+    line-height: 1;        /* very tight lines */
+}
+
+.budget ul {
+    margin: 0;
+    padding-left: 1rem;    /* optional indent for bullets */
+}
+
+
+.navbar-text {
+    margin-left: 90px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* Main container */
 .main-container {
     display: flex;
     min-height: 90vh;
+    width: 100%;
 }
 
 /* Sidebar container */
 .sidebar {
-    width: 220px;       /* fixed width */
-    background-color: #eee;
+    flex: 0 0 300px;
+    background-color: #2a7074;
     padding: 1rem;
-    box-sizing: border-box; /* include padding in width */
+    box-sizing: border-box;
+    color: white;
+    border-radius: 15px; /* rounds all corners */
+    margin-top: 15px;
 }
 
-/* Remove list bullets */
+/* Sidebar spacing */
 .sidebar ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-/* Each list item full width */
 .sidebar .data_inputs {
-    width: 100%;       /* full width of sidebar */
-    margin-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 1.25rem; /* more spacing between items */
 }
 
-/* Purple header as centered oval */
 .sidebar .data_inputs .header {
-    background-color: #4b0082; /* purple */
+    background-color: #4b0082;
     color: white;
     padding: 0.75rem 1rem;
     border-radius: 25px;
     display: block;
     font-size: 1rem;
     text-align: center;
-    width: 100%;          /* fill the li */
+    width: 100%;
     box-sizing: border-box;
 }
 
 /* Inputs under headers */
-.sidebar .data_inputs input {
+.sidebar .data_inputs input,
+.sidebar .data_inputs select {
     margin-top: 0.5rem;
     padding: 0.5rem;
     border-radius: 6px;
@@ -61,9 +103,26 @@ body {
     font-size: 1rem;
     display: block;
     box-sizing: border-box;
+    background-color: #3a8a8e; /* darker input background */
+    color: white;              /* input text white */
+    appearance: none;          /* remove default select arrow styling */
 }
 
+/* Form logo inside sidebar */
+.form-left {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
 
+.form-left .form-logo {
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
 
 /* Content area */
 .content {
@@ -71,6 +130,7 @@ body {
     padding: 2rem;
 }
 
+/* Form container */
 .form-container {
     background: #f9f9f9;
     padding: 2rem 3rem;
@@ -81,25 +141,31 @@ body {
     margin: auto;
 }
 
-input, button {
+/* Form inputs */
+input, select, button {
     font-size: 1.2rem;
     padding: 0.5rem;
     margin-top: 0.5rem;
     width: 100%;
 }
 
-button[type="submit"] {
-    background-color: #4b0082;
-    color: white;
+/* Submit buttons - lighter blue */
+button[type="submit"],
+button.reset-button {
+    background-color: #cefdff; /* lighter blue */
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-    background-color: #5e1aa0;
+button[type="submit"]:hover,
+button.reset-button:hover {
+    background-color: #b2f2ff; /* slightly darker on hover */
 }
 
+/* Result card */
 .result-card {
     background: #e0e0ff;
     padding: 1.5rem 2rem;
@@ -108,4 +174,31 @@ button[type="submit"]:hover {
     max-width: 500px;
     text-align: center;
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* Financial info section */
+.financial-info {
+    flex: 1;
+    padding: 2rem;
+    background-color: #ffffffdd;
+    border-radius: 12px;
+    margin: 1rem;
+    white-space: pre-wrap;
+    font-family: monospace;
+    line-height: 1;
+}
+
+.financial-info p,
+.financial-info li,
+.financial-info span {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Body */
+body {
+    background-color: #cefdff;
+    margin: 0;
+    font-family: sans-serif;
 }

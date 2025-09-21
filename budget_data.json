@@ -1,16 +1,18 @@
 {
-  "0": {
-    "zip_code": "126162",
-    "income": "4525232",
-    "rent_cost": "22222",
-    "utilities_cost": "235235",
-    "food_cost": "235235",
-    "transportation_cost": "463463",
-    "student_loans": "5425425",
-    "other_debt": "12",
+    "utilities_cost": "2",
+    "income_type": "hourly",
+    "income_amount": "900",
+    "rent_cost": "600",
+    "food_cost": "2",
+    "transportation_cost": "2",
+    "entertainment_cost": "2",
+    "student_loans": "999999999",
+    "other_debt": "99999",
     "disabilities": [
-      "dddd",
-      "wheel chair"
-    ]
-  }
+        "wheel chair",
+        "autism",
+        "cancer"
+    ],
+    "tax": 117.63,
+    "rent": 1653.79
 }

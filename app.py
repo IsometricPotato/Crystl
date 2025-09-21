@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import json
+from api_service import call_gemini_api
 
 app = Flask(__name__)
 app.secret_key = "hackathon"
@@ -24,10 +25,11 @@ def home():
         income = request.form.get("income")
 
         budget_data = read_budget()
-        budget_data["0"] = {} # id: 0
-        budget_data["0"]["zip_code"] = zip_code
-        budget_data["0"]["income"] = income
+        budget_data["zip_code"] = zip_code
+        budget_data["income"] = income
         write_budget(budget_data)
+
+        call_gemini_api()
 
         return redirect(url_for("expenses_page"))
     return render_template("form.html")
@@ -35,7 +37,13 @@ def home():
 
 @app.route("/budget")
 def expenses_page():
-    return render_template("expenses_page.html", user_data=session.get("user_data", {}))
+    budget_data = read_budget()
+    financial_info = call_gemini_api()  # get API output
+    return render_template(
+        "expenses_page.html",
+        user_data=budget_data.get("0", {}),
+        financial_info=financial_info
+    )
 
 
 @app.route("/update_income", methods=["POST"])
@@ -44,12 +52,11 @@ def update_income():
     income_amount = request.form.get("income_amount")
 
     budget_data = read_budget()
-    budget_data["0"]["income_type"] = income_type
-    budget_data["0"]["income_amount"] = income_amount
+    budget_data["income_type"] = income_type
+    budget_data["income_amount"] = income_amount
     write_budget(budget_data)
 
-    print(session)
-
+    call_gemini_api()
     # Redirect back to /budget, which reloads the page
     return redirect(url_for("expenses_page"))
 
@@ -58,7 +65,7 @@ def update_housing():
     rent_cost = request.form.get("rent_cost")
 
     budget_data = read_budget()
-    budget_data["0"]["rent_cost"] = rent_cost
+    budget_data["rent_cost"] = rent_cost
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
@@ -68,7 +75,7 @@ def update_utilities():
     utilities_cost = request.form.get("utilities_cost")
 
     budget_data = read_budget()
-    budget_data["0"]["utilities_cost"] = utilities_cost
+    budget_data["utilities_cost"] = utilities_cost
     write_budget(budget_data)
 
     # Redirect back to /budget to reload page
@@ -79,7 +86,7 @@ def update_food():
     food_cost = request.form.get("food_cost")
 
     budget_data = read_budget()
-    budget_data["0"]["food_cost"] = food_cost
+    budget_data["food_cost"] = food_cost
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
@@ -90,7 +97,7 @@ def update_transportation():
     transportation_cost = request.form.get("transportation_cost")
 
     budget_data = read_budget()
-    budget_data["0"]["transportation_cost"] = transportation_cost
+    budget_data["transportation_cost"] = transportation_cost
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
@@ -101,7 +108,7 @@ def update_entertainment():
     entertainment_cost = request.form.get("entertainment_cost")
 
     budget_data = read_budget()
-    budget_data["0"]["entertainment_cost"] = entertainment_cost
+    budget_data["entertainment_cost"] = entertainment_cost
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
@@ -112,8 +119,8 @@ def update_debt():
     other_debt = request.form.get("other_debt")
 
     budget_data = read_budget()
-    budget_data["0"]["student_loans"] = student_loans
-    budget_data["0"]["other_debt"] = other_debt
+    budget_data["student_loans"] = student_loans
+    budget_data["other_debt"] = other_debt
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
@@ -123,9 +130,9 @@ def update_disabilities():
     disability = request.form.get("disabilities")
 
     budget_data = read_budget()
-    if "disabilities" not in budget_data["0"]:
-        budget_data["0"]["disabilities"] = []
-    budget_data["0"]["disabilities"].append(disability)
+    if "disabilities" not in budget_data:
+        budget_data["disabilities"] = []
+    budget_data["disabilities"].append(disability)
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
@@ -134,7 +141,7 @@ def update_disabilities():
 def reset_data():
 
     budget_data = read_budget()
-    budget_data["0"] = {}
+    budget_data = {}
     write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))

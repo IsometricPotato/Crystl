@@ -1,7 +1,7 @@
 import json
 import os
 
-USER_DATA_FILE = os.path.join(os.path.dirname(__file__), '..', 'user_data', 'user_data.json')
+USER_DATA_FILE = os.path.join(os.path.dirname(__file__), 'budget_data.json')
 
 def load_user_data():
     """
@@ -15,7 +15,7 @@ def load_user_data():
         return json.load(file)
 
 def save_user_data(data):
-    """
+    """ 
     Saves the user data to the user_data.json file.
     """
     with open(USER_DATA_FILE, 'w') as file:
