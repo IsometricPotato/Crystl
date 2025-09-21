@@ -1,41 +1,106 @@
+/* Navbar */
 .navbar {
-    background-color: #4b0082; /* Indigo color */
-    color: white;
-    padding: 1rem;
+    background-color: #082d2f;
+    color: rgb(255, 255, 255);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
     font-size: 1.5rem;
     font-weight: bold;
-    text-align: left;
+    overflow: hidden;
+    padding: 0 1rem;
 }
+
+.navbar-logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+}
+
+.navbar-text {
+    margin-left: 90px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* Form container - column layout */
 .form-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; 
+    flex-direction: column;   /* stack image above form */
+    justify-content: flex-start;
+    align-items: center;      /* center horizontally */
+    padding: 2rem;            /* space from page edges */
+    gap: 0.1rem;              /* minimal space between image and form */
 }
 
+/* Logo above form */
+.form-logo {
+    max-height: 200px;        /* bigger image */
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 0;         /* remove any bottom margin */
+}
+
+
+
+/* Form styling */ 
 form {
-    background: #f9f9f9;
+    background: #082d2f;
     padding: 2rem 3rem;
+    color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0);
+    font-size: 1.2rem;
+    width: 100%;
+    max-width: 500px;         /* optional: constrain form width */
+}
+
+form h1 {
+    text-align: center;
+    color: white; /* optional if you want it white like other form text */
+    margin-bottom: 1rem; /* optional spacing below the heading */
+}
+
+
+/* Labels sit close to inputs */
+form label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+}
+
+form select,
+form input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
     font-size: 1.2rem;
 }
 
-input, button {
+/* Buttons match input width and style */
+button {
     font-size: 1.2rem;
     padding: 0.5rem;
-    margin-top: 0.5rem;
     width: 100%;
-}
-
-button {
-    background-color: #4b0082;
-    color: white;
+    background-color: #cefdff;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    margin-top: 0.5rem;
 }
 
 button:hover {
-    background-color: #5e1aa0;
+    background-color: #cefdff;
+}
+
+body {
+    background-color: #cefdff;
+    margin: 0; /* optional: remove default margin */
+    font-family: sans-serif; /* optional: nicer font */
 }

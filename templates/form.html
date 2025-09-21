@@ -5,21 +5,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
 </head>
 <body>
+    <!-- Navbar -->
     <div class="navbar">
-        Crystl🔮 - Your Personal Finance Assistant
+        <img src="{{ url_for('static', filename='logos/crystl1.png') }}" alt="Logo" class="navbar-logo">
+        <span class="navbar-text">Crystl🔮 - Your Personal Finance Assistant</span>
     </div>
+
+    <!-- Main container with left image and form -->
     <div class="form-container">
-        <form method="POST">
-            <h1>Let's get some info before we get started😺</h1>
+        <!-- Left image -->
+        <div class="form-left">
+            <img src="{{ url_for('static', filename='logos/crystl2.png') }}" alt="Crystal" class="form-logo">
+        </div>
 
-            <label for="zip_code">ZIP Code:</label><br>
-            <input type="text" id="zip_code" name="zip_code" required><br><br>
+        <!-- Right form -->
+        <div class="form-right">
+            <form method="POST">
+                <h1>Let's get some info before we get started😺</h1>
 
-            <label for="income">Monthly Take-Home Income ($):</label><br>
-            <input type="number" id="income" name="income" step="0.01" required><br><br>
+                <label for="zip_code">ZIP Code:</label>
+                <input type="text" id="zip_code" name="zip_code" required>
 
-            <button type="submit">Submit</button>
-        </form>
+                <label for="income_type">Income Type:</label>
+                <select name="income_type" id="income_type" required>
+                    <option value="hourly">Hourly</option>
+                    <option value="annually">Annual</option>
+                </select>
+
+                <label for="income_amount">Income Amount:</label>
+                <input type="number" name="income_amount" id="income_amount" step="0.01" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
