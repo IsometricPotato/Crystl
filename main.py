@@ -1,4 +1,4 @@
-from src.api_service import call_gemini_api
+from src.api_service import call_gemini_api, getAI
 from src.user_storage import update_user_data, save_user_data, load_user_data
 from src.data_processor import lookup_expense, calculateIncomeTax, prepare_prompt_data
 
@@ -17,4 +17,7 @@ update_user_data("debt", 50000)
 update_user_data("salary", 60000)
 
 #call gemini api with variables and print result
-print(call_gemini_api())
+response = call_gemini_api()
+print(response)
+
+print(getAI(response, "TIP 5"))
