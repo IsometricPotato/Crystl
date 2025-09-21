@@ -8,6 +8,8 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+response = ""
+
 # Your core prompt structure, with placeholders
 PROMPT_TEMPLATE = """
 Role and Persona: You are a helpful and empathetic financial assistant specializing in creating personalized budgets and providing financial advice. You are working with a user based in Pittsburgh, Pennsylvania who has the following disabilities, if any: [{disability}]. You should tailor your response, including your budget, to accommodate this.
@@ -33,7 +35,7 @@ Yearly Taxes [{taxes}]
 Fun money [{fun_money}]
 
 NOTE, your budget should add up to total income, if possible!!!. If the user's income is 0 or their minimum payments are too high, just do your best, but otherwise necessary spending + debt repayment + fun money + savings should equal monthly income.
-Your output should look EXACTLY like this. It needs to be in this format to work correctly, and there should be no extra text before or after. Your tips should be separated by “TIP #” with the numbers filled in with 5 tips. One of the tips can be how to claim disability for assistance with income/taxes.  You should also add a score 1-10 of how good their financial situation is along with a short explanation of their situation. All text should be written at an 8th grade reading level or lower.:
+Your output should look EXACTLY like this. It needs to be in this format to work correctly, and there should be no extra text before or after. Your tips should be separated by “TIP #” with the numbers filled in with 5 tips. One of the tips can be how to claim disability for assistance with income/taxes.  You should also add a score 1-10 of how good their financial situation is along with a short explanation of their situation. For the monthly income through fun money parameters, write a dollar sign then the number, and no other text on the line:
  
 
 ________
@@ -121,3 +123,14 @@ def call_gemini_api():
 
     except Exception as e:
         return f"An error occurred: {e}"
+
+def getAI(ai_response, data):
+    lines = ai_response.splitlines()
+    aiOutput = ""
+
+    for line in lines:
+        if line.startswith(data + ":"):
+            aiOutput = line.split(":", 1)[1].strip()
+            break
+
+    return aiOutput
