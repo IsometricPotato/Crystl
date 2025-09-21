@@ -118,10 +118,24 @@ def update_debt():
 
     return redirect(url_for("expenses_page"))
 
+@app.route("/update_disabilities", methods=["POST"])
+def update_disabilities():
+    disability = request.form.get("disabilities")
+
+    budget_data = read_budget()
+    if "disabilities" not in budget_data["0"]:
+        budget_data["0"]["disabilities"] = []
+    budget_data["0"]["disabilities"].append(disability)
+    write_budget(budget_data)
+
+    return redirect(url_for("expenses_page"))
+
 @app.route("/reset_data", methods=["POST"])
 def reset_data():
 
-    session["user_data"] = {}
+    budget_data = read_budget()
+    budget_data["0"] = {}
+    write_budget(budget_data)
 
     return redirect(url_for("expenses_page"))
 

@@ -82,7 +82,6 @@
                 <button type="submit" style="display:none;"></button>
             </form>
         </li>
-
         <li class="data_inputs">
             <span class="header">Debt</span>
             <form method="POST" action="{{ url_for('update_debt') }}">
@@ -91,6 +90,15 @@
                 
                 <label for="other_debt">Other Debt:</label>
                 <input type="number" name="other_debt" id="other_debt" step="0.01" required>
+
+                <button type="submit" style="display:none;"></button>
+            </form>
+        </li>
+        <li class="data_inputs">
+            <span class="header">Disabilities</span>
+            <form method="POST" action="{{ url_for('update_disabilities') }}">
+                <label for="disabilities">Describe disabilities if applicable:</label>
+                <input type="text" name="disabilities" id="disabilities" placeholder="Type here..."></input>
 
                 <button type="submit" style="display:none;"></button>
             </form>

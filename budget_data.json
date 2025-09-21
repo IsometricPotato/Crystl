@@ -7,6 +7,10 @@
     "food_cost": "235235",
     "transportation_cost": "463463",
     "student_loans": "5425425",
-    "other_debt": "12"
+    "other_debt": "12",
+    "disabilities": [
+      "dddd",
+      "wheel chair"
+    ]
   }
 }
