@@ -6,13 +6,6 @@ import argparse
 
 # This function would contain your API calls for external data.
 # For now, it just returns placeholder data.
-def get_api_estimates(zipcode):
-    """Placeholder for external API calls to get estimates."""
-    return {
-        "rent": "$1500",
-        "taxes": "$3000",
-        "utilities": "$200"
-    }
 
 def prepare_prompt_data():
     """
@@ -40,16 +33,6 @@ def prepare_prompt_data():
     for key, value in user_data.items():
         if key in processed_data and value:
             processed_data[key] = value
-
-    # Fill in missing data with API estimates
-    # (or a default guess)
-    api_estimates = get_api_estimates(processed_data["zip_code"])
-    if processed_data["rent"] == "Not provided":
-        processed_data["rent"] = api_estimates["rent"]
-    if processed_data["taxes"] == "Not provided":
-        processed_data["taxes"] = api_estimates["taxes"]
-    if processed_data["utilities"] == "Not provided":
-        processed_data["utilities"] = api_estimates["utilities"]
 
     save_user_data(user_data)
 
