@@ -1,7 +1,8 @@
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
-from .data_processor import prepare_prompt_data
+from .data_processor import prepare_prompt_data, lookup_expense, calculateIncomeTax
+from .user_storage import update_user_data, return_user_data
 
 load_dotenv()
 
@@ -31,7 +32,9 @@ Debt Payments [{debt}]
 Yearly Taxes [{taxes}]
 Fun money [{fun_money}]
 
-Your output should look EXACTLY like this. It needs to be in this format to work correctly, and there should be no extra text before or after. Your tips should be separated by “TIP #” with the numbers filled in with 5 tips. One of the tips can be how to claim disability for assistance with income/taxes.  You should also add a score 1-10 of how good their financial situation is along with a short explanation of their situation. All text should be written at an 8th grade reading level or lower:
+NOTE, your budget should add up to total income, if possible!!!. If the user's income is 0 or their minimum payments are too high, just do your best, but otherwise necessary spending + debt repayment + fun money + savings should equal monthly income.
+Your output should look EXACTLY like this. It needs to be in this format to work correctly, and there should be no extra text before or after. Your tips should be separated by “TIP #” with the numbers filled in with 5 tips. One of the tips can be how to claim disability for assistance with income/taxes.  You should also add a score 1-10 of how good their financial situation is along with a short explanation of their situation. All text should be written at an 8th grade reading level or lower.:
+ 
 
 ________
 Monthly Income:
@@ -42,7 +45,8 @@ Medical: {medical}
 Utilities: {utilities}
 Savings: {savings}
 Debt Payments: 
-Taxes set aside: {taxes}
+Student Loan Payments:
+Money set aside for taxes: 
 Fun money: {fun_money}
 
 TIP 1: [TIP 1]
@@ -70,11 +74,27 @@ def call_gemini_api():
 
         user_data = prepare_prompt_data()
 
-        # Get the model instance
         model = genai.GenerativeModel('gemini-1.5-pro')
 
+        estimated_rent = lookup_expense(
+            csv_file="src/rent.csv",
+            zip_code_name="RegionName",
+            zip_code=15213,
+            value="2025-08-31")
+        print(f"Estimated Rent: {estimated_rent}")
 
-        # Use a dictionary to format the prompt with user data
+        estimated_tax = calculateIncomeTax(
+            csv_file="src/incomeTax.csv",
+            zip_code=15213,
+            income=return_user_data("salary")
+        )
+        print(f"Estimated Tax: {estimated_tax}")
+
+        if user_data.get("tax") is None:
+            update_user_data("tax", estimated_tax)
+        if user_data.get("rent") is None:
+            update_user_data("rent", estimated_rent)
+
         prompt = PROMPT_TEMPLATE.format(
             disability=user_data.get("disability", "None"),
             salary=user_data.get("salary", "None"),
@@ -89,11 +109,11 @@ def call_gemini_api():
             debt=user_data.get("debt", "Not provided"),
             taxes=user_data.get("taxes", "Not provided"),
             fun_money=user_data.get("fun_money", "Not provided")
+
         )
 
         response = model.generate_content(prompt)
 
-        # Access the text content of the response
         if response and response.text:
             return response.text
         else:
